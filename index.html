@@ -30,6 +30,15 @@
     overflow-wrap: normal;
     letter-spacing: 0;
 }
+    .mobile-break {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .mobile-break {
+        display: initial;
+    }
+}
   .button{border:0;border-radius:999px;padding:15px 27px;background:linear-gradient(120deg,#d95f97,#a948a5);color:white;box-shadow:0 12px 30px #b94c7c44;cursor:pointer;transition:transform .25s,box-shadow .25s}
   .button:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 35px #b94c7c66}
   .hint{font:12px Arial,sans-serif;color:#a56c83;margin-top:18px}
@@ -396,15 +405,7 @@ document.addEventListener("click", function (event) {
         noteTab.setAttribute("aria-expanded", "false");
     }
 });
-  .mobile-break {
-    display: none;
-}
 
-@media (max-width: 600px) {
-    .mobile-break {
-        display: initial;
-    }
-}
 </script>
 </body>
 </html>
