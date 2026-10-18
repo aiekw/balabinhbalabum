@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Một món quà nhỏ dành cho bạn 🌷</title>
+<title>Một món quà nhỏ dành cho em bé 🌷</title>
 <style>
   :root{--pink:#ffe5ef;--deep:#b84c79;--ink:#744253;--paper:#fffaf0}
   *{box-sizing:border-box}
@@ -73,27 +73,25 @@
     <div class="intro">
       <div class="eyebrow">A little something, just for you</div>
       <h1>Chúc mừng<br>ngày 20/10 🌷</h1>
-      <p>Chúc bạn luôn xinh đẹp, dịu dàng, hạnh phúc và được yêu thương thật nhiều. Có một món quà nhỏ đang chờ bạn mở ra…</p>
+      <p>Chúc em bé của anh luôn xinh đẹp, dịu dàng, hạnh phúc và được yêu thật nhiều</p>
       <button class="button" id="openGift">🎁 Quà tặng</button>
-      <div class="hint">Dành tặng bạn bằng tất cả sự chân thành</div>
     </div>
   </section>
   <section class="screen" id="gift" aria-hidden="true">
     <p class="eyebrow">For someone special</p>
-    <h2 class="gift-title">Một bó hoa dành cho bạn 💐</h2>
-    <p class="gift-subtitle">Bó hoa cẩm ly nhiều màu được gói như một món quà đặc biệt.<br>Nhấn vào tấm thiệp nhỏ để lấy lời nhắn ra nhé.</p>
+    <h2 class="gift-title">Tặng em bé một bó hoa  💐</h2>
+    <br>Có tấm thiệp kìa, mở ra xem </p>
     <div class="stage" id="stage">
       <div class="glow"></div>
       <canvas id="flowerCanvas" aria-label="Bó nụ cẩm ly 3D nhiều màu sắc"></canvas>
       <button class="note-tab" id="noteTab" aria-label="Lấy tấm thiệp ra">✉</button>
       <article class="note" id="note">
-        <h2>Gửi bạn thân thương,</h2>
-        <textarea id="message" maxlength="500" aria-label="Lời nhắn trên tờ giấy">Chúc bạn một ngày 20/10 thật vui vẻ. Mong rằng mỗi ngày của bạn đều có hoa nở, nắng ấm và thật nhiều điều dịu dàng. 💗</textarea>
+        <h2>Gửi em bé của anh,</h2>
+        <textarea id="message" maxlength="500" aria-label="Lời nhắn trên tờ giấy">Chúc em bé của anh 20/10 luôn xinh, học hành chăm hơn và ít bệnh lại. Đ cần tuổi mới anh cũng chúc em bé của anh năm nay đậu nguyện vọng 1 và được anh dẫn đi chơi tốt nghiệp 💗</textarea>
         <small>một lời nhắn nhỏ, thật nhiều yêu thương</small>
       </article>
     </div>
     <div class="controls">
-      <button class="button" id="editMessage">✍️ Viết lời nhắn</button>
       <button class="button secondary" id="backButton">← Quay lại lời chúc</button>
     </div>
     <div class="footer">Made with love ♡</div>
@@ -368,6 +366,20 @@
     if (e.touches.length) tiltNote(e.touches[0].clientX, e.touches[0].clientY);
   }, {passive:true});
   note.addEventListener('dblclick', () => note.classList.remove('is-out'));
+  document.addEventListener("click", function (event) {
+    const letter = document.querySelector("#letter");
+    const closeButton = document.querySelector("#backButton");
+
+    if (!letter || !closeButton) return;
+
+    // Chỉ xử lý khi lá thư đang mở
+    if (letter.classList.contains("active")) {
+        // Nếu click bên ngoài lá thư thì đóng thư
+        if (!letter.contains(event.target)) {
+            closeButton.click();
+        }
+    }
+});
 </script>
 </body>
 </html>
