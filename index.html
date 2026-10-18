@@ -49,7 +49,24 @@
   .note.is-out ~ .note-tab{opacity:0;pointer-events:none}
   .note:after{content:'✿';position:absolute;right:18px;top:12px;color:#e9a4bb;font-size:25px;transform:translateZ(4px)}
   .note h2{font-weight:normal;font-size:1.35rem;margin:0 0 12px;color:#b14d78;transform:translateZ(8px)}
-  .note textarea{position:relative;z-index:2;width:100%;height:105px;resize:vertical;border:0;outline:0;background:transparent;color:#795063;font-family:'Brush Script MT','Segoe Script',cursive;font-size:1.2rem;line-height:1.55;transform:translateZ(10px)}
+ .note textarea {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: 105px;
+    resize: vertical;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #795063;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    transform: translateZ(10px);
+}
   .note small{display:block;text-align:right;font:10px Arial,sans-serif;letter-spacing:.08em;color:#bd8a9d;transform:translateZ(6px)}
   .controls{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:0}
   .button.secondary{background:#fff9fc;color:#a34873;border:1px solid #efbfd3;box-shadow:none}
@@ -205,15 +222,12 @@
     stem.position.copy(start).add(end).multiplyScalar(0.5);
     stem.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize()); bouquet.add(stem);
 
-    // Lá dài, nhọn, xòe ra hai bên quanh bó hoa.
     for (const side of [-1, 1]) {
       const leaf = new THREE.Mesh(makeTaperedPetalGeometry(size * 1.05, size * 0.17, size * 0.045), material(seed % 2 ? '#6eaa72' : '#91bd7d', 0.7));
       leaf.position.set(x * 0.40 + side * size * 0.12, y - size * (0.62 + (seed % 2) * 0.16), z + 0.04);
       leaf.rotation.z = side * (0.65 + (seed % 2) * 0.12); leaf.rotation.y = side * 0.35; bouquet.add(leaf);
     }
   }
-
-  // Bó quà cẩm ly: 12 nụ hoa khép kín nhiều màu, hướng đầu nụ lên trên, kèm lá, giấy gói và nơ.
   const flowers = [
     [-1.55, 1.05, 0.15, '#f35d91', 0.78, 8],
     [-0.72, 1.62, 0.45, '#ffb5d1', 0.76, 7],
@@ -230,7 +244,6 @@
   ];
   flowers.forEach((f, i) => addLilyBud(...f, i + 1));
 
-  // Giấy gói xếp lớp như bó hoa quà tặng: các tấm giấy nhọn chồng lên nhau.
   function foldedPanel(points, color, z, opacity = 0.98) {
     const shape = new THREE.Shape();
     shape.moveTo(points[0][0], points[0][1]);
@@ -239,18 +252,16 @@
     const mesh = new THREE.Mesh(new THREE.ShapeGeometry(shape), new THREE.MeshStandardMaterial({color, roughness:0.82, side:THREE.DoubleSide, transparent:opacity<1, opacity}));
     mesh.position.z = z; bouquet.add(mesh); return mesh;
   }
-  // Tấm giấy sau và hai cánh giấy gấp cao, tạo silhouette giống ảnh bó hoa mẫu.
   foldedPanel([[-1.85,0.15],[-1.45,0.85],[-0.52,0.15],[-0.95,-1.35]], '#f8c8d9', -0.28);
   foldedPanel([[1.78,0.25],[1.48,0.90],[0.48,0.18],[0.95,-1.35]], '#f3b4cd', -0.24);
   foldedPanel([[-1.55,0.05],[-0.75,0.55],[0.02,-0.25],[-0.32,-1.82],[-1.20,-1.25]], '#fff0f5', 0.20);
   foldedPanel([[1.55,0.05],[0.72,0.55],[-0.02,-0.25],[0.34,-1.82],[1.20,-1.25]], '#e99bb9', 0.22);
   foldedPanel([[-1.25,-0.45],[0,-0.95],[1.25,-0.45],[0.72,-2.55],[-0.70,-2.55]], '#f6bfd4', 0.30);
   foldedPanel([[-0.90,-0.75],[0,-1.10],[0.92,-0.75],[0.50,-2.50],[-0.48,-2.50]], '#fbdce7', 0.34);
-  // Nếp gấp sáng trên giấy tạo cảm giác giấy lụa xếp lớp.
+
   foldedPanel([[-1.45,0.05],[-0.75,0.55],[-0.30,-1.80],[-0.70,-1.45]], '#fff5f8', 0.38, 0.72);
   foldedPanel([[1.45,0.05],[0.75,0.55],[0.30,-1.80],[0.70,-1.45]], '#d985a8', 0.39, 0.58);
 
-  // Ruy băng và hai dải ruy băng rủ xuống phía trước.
   const bowMat = material('#bd4d84');
   const bowLeft = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.055, 8, 24, Math.PI * 1.7), bowMat);
   bowLeft.position.set(-0.18, -1.70, 0.72); bowLeft.rotation.z = 0.5; bouquet.add(bowLeft);
@@ -303,7 +314,6 @@
 </script>
 
 <script>
-  // Tạo những cánh hoa rơi trang trí nền.
   const petals = document.getElementById('petals');
   for (let i = 0; i < 24; i++) {
     const petal = document.createElement('span');
@@ -330,25 +340,22 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // Tấm thiệp ban đầu được nhét vào bó hoa; nhấn vào mẩu giấy để rút ra đọc.
   const stage = document.getElementById('stage');
   const note = document.getElementById('note');
   const noteTab = document.getElementById('noteTab');
-  function toggleNote() {
+ function toggleNote() {
     const isOut = note.classList.toggle('is-out');
     noteTab.setAttribute('aria-expanded', String(isOut));
-    if (isOut) setTimeout(() => document.getElementById('message').focus({preventScroll:true}), 650);
-  }
+
+    if (isOut) {
+        const message = document.getElementById('message');
+        message.scrollTop = 0;
+        message.setSelectionRange(0, 0);
+    } else {
+        note.style.transform = '';
+    }
+}
   noteTab.addEventListener('click', toggleNote);
-  document.getElementById('editMessage').addEventListener('click', () => {
-    if (!note.classList.contains('is-out')) toggleNote();
-    setTimeout(() => {
-      const message = document.getElementById('message');
-      message.focus({preventScroll:true});
-      message.setSelectionRange(message.value.length, message.value.length);
-    }, 120);
-  });
-  // Khi thiệp đã được rút ra, nó nghiêng theo chuột/ngón tay như một tấm giấy 3D.
   function tiltNote(clientX, clientY) {
     if (!note.classList.contains('is-out')) return;
     const rect = note.getBoundingClientRect();
@@ -366,18 +373,15 @@
     if (e.touches.length) tiltNote(e.touches[0].clientX, e.touches[0].clientY);
   }, {passive:true});
   note.addEventListener('dblclick', () => note.classList.remove('is-out'));
-  document.addEventListener("click", function (event) {
-    const letter = document.querySelector("#letter");
-    const closeButton = document.querySelector("#backButton");
-
-    if (!letter || !closeButton) return;
-
-    // Chỉ xử lý khi lá thư đang mở
-    if (letter.classList.contains("active")) {
-        // Nếu click bên ngoài lá thư thì đóng thư
-        if (!letter.contains(event.target)) {
-            closeButton.click();
-        }
+document.addEventListener("click", function (event) {
+    if (
+        note.classList.contains("is-out") &&
+        !note.contains(event.target) &&
+        !noteTab.contains(event.target)
+    ) {
+        note.classList.remove("is-out");
+        note.style.transform = "";
+        noteTab.setAttribute("aria-expanded", "false");
     }
 });
 </script>
