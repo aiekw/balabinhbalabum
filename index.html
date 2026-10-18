@@ -18,7 +18,7 @@
   .eyebrow{letter-spacing:.22em;text-transform:uppercase;font:600 11px Arial,sans-serif;color:#bd6d91}
   h1{font-size:clamp(2.5rem,8vw,5.7rem);font-weight:normal;line-height:1.05;margin:20px 0;color:#a63e70}
 .intro p {
-    font-family: "Times New Roman", Times, serif;
+    font-family: Arial, sans-serif;
     font-size: clamp(16px, 2.5vw, 20px);
     line-height: 1.8;
     width: 100%;
@@ -45,7 +45,12 @@
   #gift{display:none;flex-direction:column;text-align:center;gap:14px;padding-top:45px;padding-bottom:60px}
   #gift.visible{display:flex;animation:rise .9s both}
   .gift-title{font-weight:normal;font-size:clamp(2rem,6vw,3.5rem);margin:0;color:#a63e70}
-  .gift-subtitle{margin:0;font-size:1rem;line-height:1.7}
+.gift-subtitle {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+}
   .stage{width:min(100%,760px);height:470px;position:relative;display:grid;place-items:center;perspective:1100px;isolation:isolate}
   .glow{position:absolute;width:350px;height:350px;border-radius:50%;background:#fff8fd99;filter:blur(25px);z-index:-1}
   #flowerCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:1}
@@ -81,7 +86,7 @@
     outline: 0;
     background: transparent;
     color: #795063;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Brush Script MT', 'Segoe Script', cursive;
     font-size: 16px;
     line-height: 1.5;
     overflow-wrap: anywhere;
